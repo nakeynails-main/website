@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>Blog · nakeyNails</title>
-<meta name="description" content="Nail care tips, recovery guides, and expert advice from nakeyNails."/>
+<title>Growing Strong Nails After Gel · nakeyNails</title>
+<meta name="description" content="Restore your natural nails with patience, care, and the right routine."/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
@@ -21,9 +21,7 @@
   --text-sm:    clamp(13px, 0.4vw + 11px, 15px);
   --text-base:  clamp(15px, 0.4vw + 13px, 17px);
   --text-lg:    clamp(18px, 0.6vw + 15px, 22px);
-  --text-h1:    clamp(52px, 7vw + 18px, 120px);
   --gutter:     clamp(24px, 5vw, 80px);
-  --max:        1280px;
   --ease:       cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -47,9 +45,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   align-items: center;
   justify-content: space-between;
   padding: 24px var(--gutter);
-  position: sticky;
-  top: 0;
-  z-index: 50;
+  position: sticky; top: 0; z-index: 50;
   background: rgba(249,246,241,0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -58,30 +54,17 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .nav-brand { display: inline-flex; align-items: center; flex-shrink: 0; }
 .nav-brand img { height: 28px; width: auto; display: block; }
 .nav-links {
-  display: flex;
-  gap: 36px;
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--mid);
+  display: flex; gap: 36px;
+  font-size: 11px; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid);
 }
 .nav-links a { transition: color .2s; }
 .nav-links a:hover { color: var(--ink); }
 .nav-links a.active { color: var(--ink); }
 .nav-cta {
-  display: inline-flex;
-  align-items: center;
-  padding: 10px 20px;
-  background: var(--ink);
-  color: var(--paper);
-  font-family: var(--sans);
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  transition: opacity .2s;
-  white-space: nowrap;
+  display: inline-flex; align-items: center; padding: 10px 20px;
+  background: var(--ink); color: var(--paper);
+  font-family: var(--sans); font-size: 10px; font-weight: 400; letter-spacing: 0.24em; text-transform: uppercase;
+  transition: opacity .2s; white-space: nowrap;
 }
 .nav-cta:hover { opacity: 0.72; }
 .nav-menu { display: none; }
@@ -92,145 +75,85 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ── Mobile menu ─────────────────────────────────────────────── */
 .menu-overlay {
-  display: none;
-  position: fixed; inset: 0;
-  background: var(--paper);
-  z-index: 70;
-  padding: 28px var(--gutter);
-  flex-direction: column;
+  display: none; position: fixed; inset: 0;
+  background: var(--paper); z-index: 70;
+  padding: 28px var(--gutter); flex-direction: column;
 }
 .menu-overlay.open { display: flex; }
 .menu-overlay-top { display: flex; justify-content: space-between; align-items: center; }
 .menu-overlay nav { margin-top: 72px; display: flex; flex-direction: column; gap: 8px; }
 .menu-overlay nav a {
-  font-family: var(--serif);
-  font-size: clamp(36px, 6vw, 56px);
-  font-weight: 300;
-  color: var(--ink);
-  letter-spacing: -0.01em;
-  padding: 12px 0;
-  transition: color .2s;
+  font-family: var(--serif); font-size: clamp(36px, 6vw, 56px); font-weight: 300;
+  color: var(--ink); letter-spacing: -0.01em; padding: 12px 0; transition: color .2s;
 }
 .menu-overlay nav a:hover { color: var(--quiet); }
 
-/* ── Page header ─────────────────────────────────────────────── */
-.page-head {
-  padding: clamp(72px, 10vw, 140px) var(--gutter) clamp(56px, 7vw, 96px);
-  max-width: var(--max);
+/* ── Article ─────────────────────────────────────────────────── */
+.article {
+  max-width: 680px;
   margin: 0 auto;
-  border-bottom: 1px solid rgba(26,22,16,0.07);
+  padding: clamp(56px, 8vw, 104px) var(--gutter) clamp(80px, 10vw, 140px);
 }
-.page-head .label {
+
+.back {
   font-size: var(--text-label);
-  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--quiet);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 48px;
+  transition: color .2s;
+}
+.back:hover { color: var(--ink); }
+
+.article-label {
+  font-size: var(--text-label);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--quiet);
   display: block;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
-.page-head h1 {
+
+h1 {
   font-family: var(--serif);
-  font-size: var(--text-h1);
+  font-size: clamp(36px, 5vw + 16px, 72px);
   font-weight: 300;
-  line-height: 0.92;
-  letter-spacing: -0.025em;
-  max-width: 800px;
+  line-height: 0.95;
+  letter-spacing: -0.022em;
+  margin-bottom: 24px;
 }
 
-/* ── Post grid ───────────────────────────────────────────────── */
-.posts {
-  padding: clamp(56px, 7vw, 104px) var(--gutter) clamp(80px, 10vw, 140px);
-  max-width: var(--max);
-  margin: 0 auto;
-}
-
-.post-list { display: flex; flex-direction: column; gap: 0; }
-
-.post-item {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: clamp(32px, 4vw, 64px);
-  padding: clamp(28px, 3.5vw, 44px) 0;
-  border-top: 1px solid rgba(26,22,16,0.08);
-  align-items: start;
-  transition: opacity .2s;
-}
-.post-item:last-child { border-bottom: 1px solid rgba(26,22,16,0.08); }
-.post-item:hover { opacity: 0.72; }
-
-.post-date {
-  font-size: var(--text-label);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--quiet);
-  padding-top: 6px;
-}
-
-.post-body h2 {
-  font-family: var(--serif);
-  font-size: clamp(22px, 2vw + 14px, 34px);
-  font-weight: 300;
-  line-height: 1.1;
-  letter-spacing: -0.015em;
-  margin-bottom: 10px;
-  color: var(--ink);
-}
-.post-body p {
-  font-size: var(--text-sm);
+.subtitle {
+  font-size: var(--text-lg);
   color: var(--mid);
-  line-height: 1.7;
-  max-width: 560px;
-  margin-bottom: 16px;
-}
-.post-read {
-  font-size: var(--text-label);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ink);
+  line-height: 1.65;
+  margin-bottom: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(26,22,16,0.08);
 }
 
-/* Empty state */
-.empty {
-  text-align: center;
-  padding: clamp(64px, 10vw, 120px) 0;
-  color: var(--quiet);
-  font-size: var(--text-sm);
-  letter-spacing: 0.1em;
+.body p {
+  color: var(--mid);
+  line-height: 1.85;
+  margin-bottom: 24px;
+  font-size: var(--text-base);
 }
-
-@media (max-width: 640px) {
-  .post-item { grid-template-columns: 1fr; gap: 10px; }
-  .post-date { padding-top: 0; }
-}
+.body p:last-child { margin-bottom: 0; }
 
 /* ── Footer ──────────────────────────────────────────────────── */
 footer {
   padding: 40px var(--gutter);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
   border-top: 1px solid rgba(26,22,16,0.07);
 }
 .footer-brand {
-  font-family: var(--serif);
-  font-size: 16px;
-  font-weight: 400;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
+  font-family: var(--serif); font-size: 16px; font-weight: 400;
+  letter-spacing: 0.28em; text-transform: uppercase;
 }
-.footer-meta {
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--quiet);
-}
-
-/* ── Reveal ──────────────────────────────────────────────────── */
-.reveal { opacity: 0; transform: translateY(20px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
-.reveal.in { opacity: 1; transform: none; }
+.footer-meta { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--quiet); }
 
 </style>
 </head>
@@ -255,7 +178,7 @@ footer {
 <!-- Mobile menu -->
 <div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-label="Navigation">
   <div class="menu-overlay-top">
-    <span class="nav-brand" style="font-family:var(--serif);font-size:20px;letter-spacing:0.3em;text-transform:uppercase;">nakeyNails</span>
+    <span style="font-family:var(--serif);font-size:20px;letter-spacing:0.3em;text-transform:uppercase;">nakeyNails</span>
     <button id="menuClose" aria-label="Close" style="font-size:24px;color:var(--quiet);">×</button>
   </div>
   <nav>
@@ -268,26 +191,16 @@ footer {
   </nav>
 </div>
 
-<!-- Page header -->
-<div class="page-head">
-  <span class="label">nakeyNails · Journal</span>
-  <h1>Nail care,<br/><em>explained.</em></h1>
-</div>
-
-<!-- Posts (auto-populated by generate_blog.py) -->
-<div class="posts">
-  <div class="post-list" id="postList">
-    <!-- POST_ENTRIES -->
-    <a class="post-item reveal" href="2026-05-11.html">
-      <span class="post-date">May 11, 2026</span>
-      <div class="post-body">
-        <h2>Growing Strong Nails After Gel</h2>
-        <p>Restore your natural nails with patience, care, and the right routine.</p>
-        <span class="post-read">Read →</span>
-      </div>
-    </a>
+<!-- Article -->
+<main class="article">
+  <a class="back" href="index.html">← All posts</a>
+  <span class="article-label">nakeyNails · May 11, 2026</span>
+  <h1>Growing Strong Nails After Gel</h1>
+  <p class="subtitle">Restore your natural nails with patience, care, and the right routine.</p>
+  <div class="body">
+    <p>If you've been wearing gel nails regularly, you know how fabulous they look. But you also know that eventual reality check when you decide to take a break—your natural nails need serious TLC. The good news? Your nails are more resilient than you might think, and with the right approach, they'll bounce back beautifully.</p><p>The first thing to understand is that gel doesn't permanently damage your nails. What it does do is create a seal that prevents moisture from reaching the nail bed. After removal, your nails are often dehydrated, brittle, and sometimes thin. This is completely normal and temporary. Your job now is to restore hydration and strengthen what you have.</p><p>Start by being gentle with your nails during the transition period. Avoid prolonged water exposure, wear gloves when cleaning, and skip the harsh chemicals for a few weeks. Water is essential for nail health, but excessive soaking can make nails soft and prone to peeling. Instead, keep your hands moisturized throughout the day. A good cuticle oil or hand cream applied regularly will make an enormous difference. Think of it as rehydrating your nails from the outside in.</p><p>Next, give your nails room to breathe. Keep them short and simple while they recover—this reduces stress on the nail structure and makes breakage less likely. File them gently in one direction rather than sawing back and forth, which can cause splitting. You don't need polish during this recovery phase, but if you want to wear it, choose breathable formulas and remove them properly rather than peeling them off.</p><p>Nutrition matters too. Your nails reflect your overall health, so make sure you're eating enough protein, iron, and biotin-rich foods. These nutrients support healthy nail growth from the inside. Most people see noticeable improvement within four to eight weeks if they're consistent with their care routine.</p><p>Be patient with yourself during this process. Your nails will eventually return to their natural strength and beauty. In the meantime, treating them like the delicate structures they are—with regular hydration and gentle handling—makes all the difference. When you're ready to add a touch of color, the NakeyPen is perfect for detailed nail art that doesn't require harsh removal processes. But honestly, sometimes the best thing you can do for your nails is embrace their natural state and focus on what matters most: keeping them healthy and strong.</p>
   </div>
-</div>
+</main>
 
 <!-- Footer -->
 <footer>
@@ -297,7 +210,6 @@ footer {
 </footer>
 
 <script>
-  // Mobile menu
   const btn     = document.getElementById('menuBtn');
   const close   = document.getElementById('menuClose');
   const overlay = document.getElementById('menuOverlay');
@@ -306,12 +218,6 @@ footer {
   close?.addEventListener('click', closeMenu);
   overlay?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
   document.addEventListener('keydown', e => e.key === 'Escape' && closeMenu());
-
-  // Reveal
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
 
 </body>
