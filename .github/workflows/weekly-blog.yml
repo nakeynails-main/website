@@ -1,0 +1,35 @@
+name: Weekly Blog Post
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'   # Every Monday at 9:00 AM UTC
+  workflow_dispatch:        # Also allows manual trigger from GitHub UI
+
+jobs:
+  generate-blog:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write       # Needed to commit and push new files
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate blog post
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python3 generate_blog.py
+
+      - name: Commit and push new post
+        run: |
+          git config user.name  "Blog Bot"
+          git config user.email "bot@nakeynails.com"
+          git add blogs/
+          git diff --staged --quiet && echo "No changes to commit" || \
+          git commit -m "Blog: $(date +'%Y-%m-%d')" && git push
