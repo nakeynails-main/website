@@ -103,6 +103,16 @@ raw = re.sub(r"\n?```$", "", raw.strip())
 post = json.loads(raw)
 
 chosen_topic     = post["chosen_topic"]
+
+# Generate clean URL slug from title
+def make_slug(text):
+    text = text.lower().strip()
+    text = re.sub(r"[^a-z0-9\s-]", "", text)
+    text = re.sub(r"[\s]+", "-", text)
+    text = re.sub(r"-+", "-", text).strip("-")
+    return text[:60]  # max 60 chars
+
+url_slug = make_slug(post["title"])
 title            = post["title"]
 meta_description = post["meta_description"]
 focus_keyword    = post["focus_keyword"]
@@ -122,7 +132,7 @@ print(f"Title: {title}")
 print(f"Keyword: {focus_keyword}")
 
 # ── Build HTML ────────────────────────────────────────────────────
-canonical = f"{DOMAIN}/blogs/{SLUG}.html"
+canonical = f"{DOMAIN}/blogs/{url_slug}"
 
 html = f"""<!doctype html>
 <html lang="en">
@@ -255,7 +265,7 @@ footer{{padding:40px var(--gutter);display:flex;justify-content:space-between;al
 </html>"""
 
 # ── Save post ─────────────────────────────────────────────────────
-post_path = f"blogs/{SLUG}.html"
+post_path = f"blogs/{url_slug}.html"
 with open(post_path, "w", encoding="utf-8") as f:
     f.write(html)
 print(f"Saved: {post_path}")
