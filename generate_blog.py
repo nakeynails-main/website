@@ -277,24 +277,30 @@ with open(TOPICS_FILE, "w") as f:
 print(f"Tracked topic: {chosen_topic}")
 
 # ── Rebuild blogs/index.html ──────────────────────────────────────
-post_files = sorted(
-    [fn for fn in os.listdir("blogs") if re.match(r"\d{4}-\d{2}-\d{2}\.html$", fn)],
-    reverse=True
-)
+# Match ALL post html files, not just date-named ones
+all_files = [fn for fn in os.listdir("blogs")
+             if fn.endswith(".html") and fn != "index.html"]
 
-entries = ""
-for fn in post_files:
-    s = fn.replace(".html", "")
+posts_meta = []
+for fn in all_files:
     with open(f"blogs/{fn}", encoding="utf-8") as f:
         ct = f.read()
     h1m = re.search(r"<h1>(.*?)</h1>", ct, re.DOTALL)
     sm  = re.search(r'<p class="subtitle">(.*?)</p>', ct, re.DOTALL)
-    pt  = h1m.group(1).strip() if h1m else s
-    ps  = sm.group(1).strip()  if sm  else ""
+    dm  = re.search(r'article:published_time" content="([^"]+)"', ct)
+    pt       = h1m.group(1).strip() if h1m else fn[:-5]
+    ps       = sm.group(1).strip()  if sm  else ""
+    pub_date = dm.group(1).strip()  if dm  else TODAY.isoformat()
     try:
-        dd = datetime.datetime.strptime(s, "%Y-%m-%d").strftime("%b %d, %Y")
+        dd = datetime.datetime.fromisoformat(pub_date).strftime("%b %d, %Y")
     except Exception:
-        dd = s
+        dd = DATE_STR
+    posts_meta.append((pub_date, fn, pt, ps, dd))
+
+posts_meta.sort(key=lambda x: x[0], reverse=True)
+
+entries = ""
+for pub_date, fn, pt, ps, dd in posts_meta:
     entries += f"""
     <a class="post-item reveal" href="{fn[:-5]}">
       <span class="post-date">{dd}</span>
@@ -307,15 +313,12 @@ for fn in post_files:
 
 with open("blogs/index.html", encoding="utf-8") as f:
     idx = f.read()
-
 idx = re.sub(
     r"<!-- POST_ENTRIES -->.*?(?=\s*</div>)",
     f"<!-- POST_ENTRIES -->{entries}",
     idx, flags=re.DOTALL
 )
-
 with open("blogs/index.html", "w", encoding="utf-8") as f:
     f.write(idx)
-
-print(f"Updated index: {len(post_files)} posts listed.")
+print(f"Updated index: {len(posts_meta)} posts listed.")
 print("Done.")
