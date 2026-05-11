@@ -59,7 +59,7 @@ Requirements:
 - No markdown. No code fences. No explanation. Just the JSON object."""
 
 payload = json.dumps({
-    "model": "claude-opus-4-5",
+    "model": "claude-haiku-4-5-20251001",
     "max_tokens": 1200,
     "messages": [{"role": "user", "content": prompt}]
 }).encode()
