@@ -296,7 +296,7 @@ for fn in post_files:
     except Exception:
         dd = s
     entries += f"""
-    <a class="post-item reveal" href="{fn}">
+    <a class="post-item reveal" href="{fn.replace(\".html\", \"\")}">
       <span class="post-date">{dd}</span>
       <div class="post-body">
         <h2>{pt}</h2>
