@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """
-generate_blog.py — nakeyNails weekly blog automation
-1. Searches web for a trending nail care topic this week
-2. Checks topics_used.json — never repeats a topic
-3. Writes a 700-900 word SEO-optimised, human-sounding post
-4. Saves blogs/YYYY-MM-DD.html
-5. Updates blogs/index.html
-6. Updates blogs/topics_used.json
+generate_blog.py - nakeyNails weekly blog
+- Single API call (low token usage, no rate limits)
+- Claude picks a fresh niche-relevant topic dynamically
+- Never repeats topics (tracked in blogs/topics_used.json)
+- 600-750 word human-sounding post with full SEO
+- No em dashes in output
 """
 
 import os, json, re, datetime, urllib.request, urllib.error
@@ -29,138 +28,81 @@ else:
     topics_used = []
 
 used_list = "\n".join(f"- {t}" for t in topics_used) or "None yet."
-print(f"Topics used: {len(topics_used)}")
+print(f"Topics used so far: {len(topics_used)}")
 
+# ── Single API call: pick topic + write post ─────────────────────
+prompt = f"""You are writing for nakeyNails (nakeynails.com). NakeyPen is a nail repair serum for people whose nails have been damaged by gel and acrylic manicures.
 
-def call_api(messages, tools=None, max_tokens=512):
-    body = {
-        "model": "claude-haiku-4-5-20251001",
-        "max_tokens": max_tokens,
-        "messages": messages
-    }
-    if tools:
-        body["tools"] = tools
-    req = urllib.request.Request(
-        "https://api.anthropic.com/v1/messages",
-        data=json.dumps(body).encode(),
-        headers={
-            "x-api-key":         API_KEY,
-            "anthropic-version": "2023-06-01",
-            "content-type":      "application/json"
-        }
-    )
-    try:
-        with urllib.request.urlopen(req) as r:
-            return json.loads(r.read())
-    except urllib.error.HTTPError as e:
-        print(f"API error {e.code}: {e.read().decode()}")
-        raise
+TASK: Choose a fresh topic and write a complete blog post in one step.
 
-
-def extract_text(response):
-    for block in response.get("content", []):
-        if block.get("type") == "text":
-            return block["text"].strip()
-    return ""
-
-
-def clean_json(text):
-    text = re.sub(r"^```[a-z]*\n?", "", text.strip())
-    text = re.sub(r"\n?```$", "", text.strip())
-    return text.strip()
-
-
-# ── STEP 1: Find trending topic ───────────────────────────────────
-print("Step 1: Finding trending topic...")
-
-topic_prompt = f"""You are a content strategist for nakeyNails — a nail repair brand for people recovering from gel and acrylic damage.
-
-Today is {DATE_STR}. Search the web to find what nail care topics are being discussed or trending RIGHT NOW — check Reddit, Google searches, TikTok, Instagram, beauty blogs, and nail forums.
-
-Pick ONE specific, fresh topic that:
-- Is trending or highly relevant this week
-- Relates to: nail repair, gel/acrylic damage recovery, nail health, nail growth, nail care routines, or nail ingredients
-- Has NOT been covered before in this list:
+TOPIC RULES:
+- Pick a specific, useful topic relevant to: nail repair, gel or acrylic damage recovery, nail growth, nail health, nail care routines, or nail ingredients
+- The topic must NOT be in this already-used list:
 {used_list}
+- Be specific, not generic. Bad: "nail care tips". Good: "Why nails split vertically after acrylics"
 
-The topic must be specific — not generic like "nail care tips". Think: a specific problem, question, ingredient, trend, or technique people are searching for RIGHT NOW.
+WRITING RULES:
+- 600 to 750 words
+- Write like a real person who knows nails, not a content generator
+- Use short paragraphs (2 to 3 sentences each)
+- Mix short and long sentences naturally
+- Address the reader directly using "you"
+- Include one specific relatable scenario (example: "You finally get your gel removed and...")
+- Do NOT use the words: delve, comprehensive, crucial, leverage, furthermore, moreover, in conclusion, it is important to note, game changer
+- Do NOT use em dashes (the -- or long dash character). Use commas or full stops instead
+- Do NOT open with a question
+- Do NOT use bullet points or numbered lists
+- 3 to 4 subheadings using h2 tags with natural keyword phrases
+- Mention NakeyPen once only, naturally, in the final paragraph
+- Sound human. Vary your rhythm. Do not be repetitive.
 
-Return ONLY raw JSON (no markdown):
-{{"topic": "specific topic title", "reason": "why it is trending now"}}"""
+SEO RULES:
+- Focus keyword must appear in: first paragraph, one h2, and 3 times naturally in the body
+- Title: 50 to 60 characters, clear and click-worthy
+- Meta description: 150 to 160 characters, includes focus keyword, compelling
 
-topic_res = call_api(
-    messages=[{"role": "user", "content": topic_prompt}],
-    tools=[{"type": "web_search_20250305", "name": "web_search"}],
-    max_tokens=1024
-)
-
-topic_text = clean_json(extract_text(topic_res))
-
-try:
-    topic_data   = json.loads(topic_text)
-    chosen_topic = topic_data["topic"]
-    topic_reason = topic_data.get("reason", "")
-except Exception:
-    m = re.search(r'"topic"\s*:\s*"([^"]+)"', topic_text)
-    chosen_topic = m.group(1) if m else "How to rebuild nails after gel removal"
-    topic_reason = ""
-
-print(f"Topic: {chosen_topic}")
-print(f"Reason: {topic_reason}")
-
-
-# ── STEP 2: Write the blog post ───────────────────────────────────
-print("Step 2: Writing post...")
-
-write_prompt = f"""Write a blog post for nakeyNails (nakeynails.com).
-NakeyPen is a nail repair serum for people whose nails are damaged from gel and acrylic.
-
-Topic: {chosen_topic}
-
-VOICE AND TONE:
-- Write like a knowledgeable friend who works in beauty — warm, direct, no fluff
-- Use "you" throughout — talk to the reader personally
-- Vary your sentence length: mix short punchy sentences with longer explanatory ones
-- Include one relatable scenario the reader will recognise (e.g. "If you've ever picked off a gel manicure...")
-- Sound like a person who has seen this problem firsthand, not a blog generator
-
-WHAT NOT TO DO:
-- Never write: "delve", "comprehensive", "crucial", "it's important to note", "in conclusion", "game-changer", "furthermore", "moreover"
-- Do not start consecutive sentences with the same word
-- No bullet points or numbered lists — flowing paragraphs only
-- Do not open with a question or "Are you..."
-- Do not make it obvious AI wrote it
-
-STRUCTURE:
-- 700 to 900 words
-- 3 to 4 subheadings using <h2> tags with natural keyword-rich phrases
-- All text in <p> and <h2> tags only — no other HTML tags
-- Mention NakeyPen once, naturally, in the final paragraph — do not make it promotional
-
-SEO:
-- Focus keyword must appear in: first paragraph, at least one h2, and 3-4 times naturally in the body
-- Title: 50-60 characters, clear, compelling, includes the focus keyword
-- Meta description: 150-160 characters, includes focus keyword, makes the reader want to click
-- H1 can be slightly different from the title — more conversational
-
-Return ONLY a raw JSON object, no markdown, no explanation:
+OUTPUT: Return ONLY a raw JSON object. No markdown. No explanation. No code fences.
 {{
-  "title": "...",
-  "meta_description": "...",
-  "focus_keyword": "...",
-  "h1": "...",
-  "subtitle": "one sentence that draws the reader in, max 25 words",
-  "body": "full post HTML using only <p> and <h2> tags"
+  "chosen_topic": "the topic you picked",
+  "title": "SEO title 50-60 chars",
+  "meta_description": "150-160 char meta description",
+  "focus_keyword": "main keyword phrase",
+  "h1": "slightly more conversational than title",
+  "subtitle": "one sentence to draw reader in, max 20 words",
+  "body": "full post HTML using only p and h2 tags"
 }}"""
 
-post_res  = call_api(
-    messages=[{"role": "user", "content": write_prompt}],
-    max_tokens=2800
+body_payload = json.dumps({
+    "model": "claude-haiku-4-5-20251001",
+    "max_tokens": 2000,
+    "messages": [{"role": "user", "content": prompt}]
+}).encode()
+
+req = urllib.request.Request(
+    "https://api.anthropic.com/v1/messages",
+    data=body_payload,
+    headers={
+        "x-api-key":         API_KEY,
+        "anthropic-version": "2023-06-01",
+        "content-type":      "application/json"
+    }
 )
 
-raw = clean_json(extract_text(post_res))
+print("Calling API...")
+try:
+    with urllib.request.urlopen(req) as r:
+        response = json.loads(r.read())
+except urllib.error.HTTPError as e:
+    print(f"API error {e.code}: {e.read().decode()}")
+    raise
+
+raw = response["content"][0]["text"].strip()
+raw = re.sub(r"^```[a-z]*\n?", "", raw)
+raw = re.sub(r"\n?```$", "", raw.strip())
+
 post = json.loads(raw)
 
+chosen_topic     = post["chosen_topic"]
 title            = post["title"]
 meta_description = post["meta_description"]
 focus_keyword    = post["focus_keyword"]
@@ -168,11 +110,18 @@ h1               = post["h1"]
 subtitle         = post["subtitle"]
 body             = post["body"]
 
+# Safety: strip any em dashes that slipped through
+for dash in ["\u2014", "\u2013", " -- ", "--"]:
+    body     = body.replace(dash, ", ")
+    title    = title.replace(dash, " ")
+    subtitle = subtitle.replace(dash, ", ")
+    h1       = h1.replace(dash, " ")
+
+print(f"Topic: {chosen_topic}")
 print(f"Title: {title}")
 print(f"Keyword: {focus_keyword}")
 
-
-# ── STEP 3: Build HTML ────────────────────────────────────────────
+# ── Build HTML ────────────────────────────────────────────────────
 canonical = f"{DOMAIN}/blogs/{SLUG}.html"
 
 html = f"""<!doctype html>
@@ -180,18 +129,18 @@ html = f"""<!doctype html>
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>{title} · nakeyNails</title>
+<title>{title} - nakeyNails</title>
 <meta name="description" content="{meta_description}"/>
 <meta name="keywords" content="{focus_keyword}, nail repair, gel nail damage, acrylic nail recovery, NakeyPen, nail care"/>
 <link rel="canonical" href="{canonical}"/>
-<meta property="og:type"        content="article"/>
-<meta property="og:title"       content="{title}"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="{title}"/>
 <meta property="og:description" content="{meta_description}"/>
-<meta property="og:url"         content="{canonical}"/>
-<meta property="og:site_name"   content="nakeyNails"/>
+<meta property="og:url" content="{canonical}"/>
+<meta property="og:site_name" content="nakeyNails"/>
 <meta property="article:published_time" content="{TODAY.isoformat()}"/>
-<meta name="twitter:card"        content="summary"/>
-<meta name="twitter:title"       content="{title}"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="{title}"/>
 <meta name="twitter:description" content="{meta_description}"/>
 <script type="application/ld+json">
 {{
@@ -221,15 +170,18 @@ html = f"""<!doctype html>
 *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0;}}
 html{{scroll-behavior:smooth;}}
 body{{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:var(--text-base);line-height:1.65;-webkit-font-smoothing:antialiased;}}
-a{{color:inherit;text-decoration:none;}} button{{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}}
+a{{color:inherit;text-decoration:none;}}
+button{{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}}
 .nav{{display:flex;align-items:center;justify-content:space-between;padding:24px var(--gutter);position:sticky;top:0;z-index:50;background:rgba(249,246,241,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(26,22,16,0.07);}}
 .nav-brand{{display:inline-flex;align-items:center;flex-shrink:0;}}
 .nav-brand img{{height:28px;width:auto;display:block;}}
 .nav-links{{display:flex;gap:36px;font-size:11px;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:var(--mid);}}
-.nav-links a{{transition:color .2s;}} .nav-links a:hover,.nav-links a.active{{color:var(--ink);}}
+.nav-links a{{transition:color .2s;}}
+.nav-links a:hover,.nav-links a.active{{color:var(--ink);}}
 .nav-cta{{display:inline-flex;align-items:center;padding:10px 20px;background:var(--ink);color:var(--paper);font-size:10px;font-weight:400;letter-spacing:0.24em;text-transform:uppercase;transition:opacity .2s;white-space:nowrap;}}
-.nav-cta:hover{{opacity:0.72;}} .nav-menu{{display:none;}}
-@media(max-width:720px){{.nav-links{{display:none;}} .nav-menu{{display:block;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;}}}}
+.nav-cta:hover{{opacity:0.72;}}
+.nav-menu{{display:none;}}
+@media(max-width:720px){{.nav-links{{display:none;}}.nav-menu{{display:block;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;}}}}
 .menu-overlay{{display:none;position:fixed;inset:0;background:var(--paper);z-index:70;padding:28px var(--gutter);flex-direction:column;}}
 .menu-overlay.open{{display:flex;}}
 .menu-overlay-top{{display:flex;justify-content:space-between;align-items:center;}}
@@ -252,7 +204,9 @@ footer{{padding:40px var(--gutter);display:flex;justify-content:space-between;al
 </head>
 <body>
 <header class="nav">
-  <a class="nav-brand" href="../index.html" aria-label="nakeyNails home"><img src="../logo.png" alt="nakeyNails"/></a>
+  <a class="nav-brand" href="../index.html" aria-label="nakeyNails home">
+    <img src="../logo.png" alt="nakeyNails"/>
+  </a>
   <nav class="nav-links" aria-label="Main navigation">
     <a href="../index.html#product">The Pen</a>
     <a href="../index.html#ingredients">Formula</a>
@@ -300,19 +254,19 @@ footer{{padding:40px var(--gutter);display:flex;justify-content:space-between;al
 </body>
 </html>"""
 
-# ── STEP 4: Save post ─────────────────────────────────────────────
+# ── Save post ─────────────────────────────────────────────────────
 post_path = f"blogs/{SLUG}.html"
 with open(post_path, "w", encoding="utf-8") as f:
     f.write(html)
 print(f"Saved: {post_path}")
 
-# ── STEP 5: Track topic ───────────────────────────────────────────
+# ── Track topic ───────────────────────────────────────────────────
 topics_used.append(chosen_topic)
 with open(TOPICS_FILE, "w") as f:
     json.dump(topics_used, f, indent=2)
-print(f"Tracked: {chosen_topic}")
+print(f"Tracked topic: {chosen_topic}")
 
-# ── STEP 6: Rebuild blogs/index.html ─────────────────────────────
+# ── Rebuild blogs/index.html ──────────────────────────────────────
 post_files = sorted(
     [fn for fn in os.listdir("blogs") if re.match(r"\d{4}-\d{2}-\d{2}\.html$", fn)],
     reverse=True
@@ -326,7 +280,7 @@ for fn in post_files:
     h1m = re.search(r"<h1>(.*?)</h1>", ct, re.DOTALL)
     sm  = re.search(r'<p class="subtitle">(.*?)</p>', ct, re.DOTALL)
     pt  = h1m.group(1).strip() if h1m else s
-    ps  = sm.group(1).strip() if sm else ""
+    ps  = sm.group(1).strip()  if sm  else ""
     try:
         dd = datetime.datetime.strptime(s, "%Y-%m-%d").strftime("%b %d, %Y")
     except Exception:
@@ -353,5 +307,5 @@ idx = re.sub(
 with open("blogs/index.html", "w", encoding="utf-8") as f:
     f.write(idx)
 
-print(f"Updated index with {len(post_files)} posts.")
+print(f"Updated index: {len(post_files)} posts listed.")
 print("Done.")
