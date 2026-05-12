@@ -112,7 +112,14 @@ def make_slug(text):
     text = re.sub(r"-+", "-", text).strip("-")
     return text[:60]  # max 60 chars
 
-url_slug = make_slug(post["title"])
+base_slug = make_slug(post["title"])
+
+# Ensure slug is unique — append -2, -3 etc if file already exists
+url_slug = base_slug
+counter  = 2
+while os.path.exists(f"blogs/{url_slug}.html"):
+    url_slug = f"{base_slug}-{counter}"
+    counter += 1
 title            = post["title"]
 meta_description = post["meta_description"]
 focus_keyword    = post["focus_keyword"]
@@ -281,6 +288,7 @@ print(f"Tracked topic: {chosen_topic}")
 all_files = [fn for fn in os.listdir("blogs")
              if fn.endswith(".html") and fn != "index.html"]
 
+print(f"Found files: {all_files}")
 posts_meta = []
 for fn in all_files:
     with open(f"blogs/{fn}", encoding="utf-8") as f:
