@@ -36,10 +36,27 @@ prompt = f"""You are writing for nakeyNails (nakeynails.com). NakeyPen is a nail
 TASK: Choose a fresh topic and write a complete blog post in one step.
 
 TOPIC RULES:
-- Pick a specific, useful topic relevant to: nail repair, gel or acrylic damage recovery, nail growth, nail health, nail care routines, or nail ingredients
+- Pick ONE specific topic. Rotate across these niche areas so the blog covers them all over time:
+  1. Nail brittleness: causes, prevention, daily habits that help
+  2. Nail thinning: why it happens, how to rebuild thickness
+  3. Nail peeling: what causes layers to separate, what stops it
+  4. Nail yellowing: staining, discolouration, reversing it
+  5. Chronic nail damage: long-term gel or acrylic users, cumulative effects
+  6. Gel damage: removal damage, UV exposure, keratin loss
+  7. Acrylic damage: filing damage, adhesive chemicals, recovery timeline
+  8. Nail growth: what speeds it up, what blocks it
+  9. Nail hydration: cuticle care, moisture barrier, dry brittle nails
+  10. Nail ingredients: what peptides, keratin, hyaluronic acid, niacinamide actually do
 - The topic must NOT be in this already-used list:
 {used_list}
-- Be specific, not generic. Bad: "nail care tips". Good: "Why nails split vertically after acrylics"
+- Pick whichever niche area above has been covered LEAST based on the used list above
+- Be highly specific with your angle:
+  Bad: "nail brittleness tips" | Good: "Why nails get extra brittle in winter and what actually helps"
+  Bad: "gel nail damage" | Good: "The specific damage that happens when you peel off gel polish"
+  Bad: "nail peeling" | Good: "Why the top layer of your nail keeps separating even after stopping gel"
+- Vary your title format every single week. Rotate through these structures:
+  "Why...", "How to...", "The real reason...", "What happens when...", "Is it normal that...", "How long does it take to...", "What nobody tells you about..."
+  Never start two posts in a row with the same opening word
 
 WRITING RULES:
 - 600 to 750 words
