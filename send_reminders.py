@@ -134,7 +134,8 @@ def build_email(name):
 def send_email(to_email, name):
     msg = MIMEMultipart("alternative")
     msg["Subject"] = "Time to strengthen your nails with NakeyPen"
-    msg["From"]    = f"nakeyNails <{GMAIL_USER}>"
+    # msg["From"]    = f"nakeyNails <{GMAIL_USER}>"
+    msg["From"]    = "nakeyNails <help@nakeynails.com>"
     msg["To"]      = to_email
 
     # Plain text fallback
