@@ -274,7 +274,7 @@ footer{{padding:40px var(--gutter);display:flex;justify-content:space-between;al
     <div class="body">{body}</div>
   </main>
   <aside class="shop-sidebar" aria-label="Shop NakeyPen">
-    <img class="shop-sidebar-img" src="../love__98_.png" alt="NakeyPen nail strengthener"/>
+    <img class="shop-sidebar-img" src="../love98.png" alt="NakeyPen nail strengthener"/>
     <span class="shop-sidebar-label">NakeyPen &middot; No. 01</span>
     <p class="shop-sidebar-name">The Repair<br/><em>Pen.</em></p>
     <p class="shop-sidebar-desc">Repairs nail damage from gel and acrylics in 4 weeks. 10-second nightly routine.</p>
