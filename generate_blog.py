@@ -265,13 +265,23 @@ footer{{padding:40px var(--gutter);display:flex;justify-content:space-between;al
     <a href="https://www.amazon.com/dp/B0G14TM258" target="_blank" rel="noopener">Shop</a>
   </nav>
 </div>
-<main class="article">
-  <a class="back" href="index.html">&#8592; All posts</a>
-  <span class="article-label">nakeyNails &middot; {DATE_STR}</span>
-  <h1>{h1}</h1>
-  <p class="subtitle">{subtitle}</p>
-  <div class="body">{body}</div>
-</main>
+<div class="article-wrap">
+  <main class="article">
+    <a class="back" href="index.html">&#8592; All posts</a>
+    <span class="article-label">nakeyNails &middot; {DATE_STR}</span>
+    <h1>{h1}</h1>
+    <p class="subtitle">{subtitle}</p>
+    <div class="body">{body}</div>
+  </main>
+  <aside class="shop-sidebar" aria-label="Shop NakeyPen">
+    <img class="shop-sidebar-img" src="../love98.png" alt="NakeyPen nail strengthener"/>
+    <span class="shop-sidebar-label">NakeyPen &middot; No. 01</span>
+    <p class="shop-sidebar-name">The Repair<br/><em>Pen.</em></p>
+    <p class="shop-sidebar-desc">Repairs nail damage from gel and acrylics in 4 weeks. 10-second nightly routine.</p>
+    <a class="shop-sidebar-btn" href="https://www.amazon.com/dp/B0G14TM258" target="_blank" rel="noopener">Shop Now</a>
+    <span class="shop-sidebar-note">Free US shipping<br/>Available on Amazon</span>
+  </aside>
+</div>
 <footer>
   <span class="footer-brand">nakeyNails</span>
   <span class="footer-meta">&copy; {YEAR} &middot; Made in USA &middot; Dermatologist Tested</span>
