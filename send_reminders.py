@@ -219,7 +219,7 @@ for row in rows:
         try:
             h, m = map(int, str(t).split(":"))
             reminder_mins = h * 60 + m
-            if abs(now_mins - reminder_mins) <= 7:
+            if abs(now_mins - reminder_mins) <= 3:
                 should_send = True
                 break
         except Exception:
