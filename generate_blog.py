@@ -274,7 +274,7 @@ footer{{padding:40px var(--gutter);display:flex;justify-content:space-between;al
     <div class="body">{body}</div>
   </main>
   <aside class="shop-sidebar" aria-label="Shop NakeyPen">
-    <img class="shop-sidebar-img" src="../love98.png" alt="NakeyPen nail strengthener"/>
+    <img class="shop-sidebar-img" src="../love__98_.png" alt="NakeyPen nail strengthener"/>
     <span class="shop-sidebar-label">NakeyPen &middot; No. 01</span>
     <p class="shop-sidebar-name">The Repair<br/><em>Pen.</em></p>
     <p class="shop-sidebar-desc">Repairs nail damage from gel and acrylics in 4 weeks. 10-second nightly routine.</p>
@@ -348,11 +348,21 @@ for pub_date, fn, pt, ps, dd in posts_meta:
 
 with open("blogs/index.html", encoding="utf-8") as f:
     idx = f.read()
-idx = re.sub(
-    r"<!-- POST_ENTRIES -->.*?(?=\s*</div>)",
-    f"<!-- POST_ENTRIES -->{entries}\n    <p class=\"search-empty\" id=\"searchEmpty\">No articles found for that search.</p>",
-    idx, flags=re.DOTALL
-)
+
+marker = "<!-- POST_ENTRIES -->"
+close  = "</div>\n</div>"   # postList close + posts close
+
+if marker in idx:
+    before = idx.split(marker)[0]
+    after_raw = idx.split(marker)[1]
+    # Find the last </div></div> block after the marker (postList + posts wrapper)
+    close_pos = after_raw.rfind("</div>")
+    close_pos = after_raw.rfind("</div>", 0, close_pos)
+    after = after_raw[close_pos:]
+    idx = (before + marker + entries +
+           '\n    <p class="search-empty" id="searchEmpty">No articles found for that search.</p>\n  ' +
+           after)
+
 with open("blogs/index.html", "w", encoding="utf-8") as f:
     f.write(idx)
 print(f"Updated index: {len(posts_meta)} posts listed.")
