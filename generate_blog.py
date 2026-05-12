@@ -222,7 +222,7 @@ button{{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}}
 .menu-overlay nav{{margin-top:72px;display:flex;flex-direction:column;gap:8px;}}
 .menu-overlay nav a{{font-family:var(--serif);font-size:clamp(36px,6vw,56px);font-weight:300;color:var(--ink);letter-spacing:-0.01em;padding:12px 0;transition:color .2s;}}
 .menu-overlay nav a:hover{{color:var(--quiet);}}
-.article{{max-width:680px;margin:0 auto;padding:clamp(56px,8vw,104px) var(--gutter) clamp(80px,10vw,140px);}}
+.article-wrap{{display:flex;flex-direction:row;gap:clamp(40px,5vw,72px);align-items:flex-start;max-width:1100px;margin:0 auto;padding:clamp(56px,8vw,104px) var(--gutter) clamp(80px,10vw,140px);}}.article{{flex:1;min-width:0;max-width:680px;}}.shop-sidebar{{flex-shrink:0;width:220px;position:sticky;top:88px;display:flex;flex-direction:column;align-items:center;text-align:center;padding:28px 20px 24px;border:1px solid rgba(26,22,16,0.09);background:#FAF7F2;overflow:hidden;}}.shop-sidebar-img{{width:160px;height:160px;object-fit:contain;display:block;margin:0 auto 20px;}}.shop-sidebar-label{{font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:#9E9890;display:block;margin-bottom:8px;}}.shop-sidebar-name{{font-family:var(--serif);font-size:22px;font-weight:300;line-height:1.1;color:#1A1610;margin-bottom:10px;}}.shop-sidebar-desc{{font-size:12px;color:#5C5650;line-height:1.6;margin-bottom:20px;font-weight:300;}}.shop-sidebar-btn{{display:block;width:100%;padding:13px 12px;background:#1A1610;color:#FAF7F2;font-family:var(--sans);font-size:10px;font-weight:400;letter-spacing:0.26em;text-transform:uppercase;text-align:center;text-decoration:none;transition:opacity .2s;margin-bottom:10px;}}.shop-sidebar-btn:hover{{opacity:0.75;}}.shop-sidebar-note{{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#9E9890;line-height:1.8;}}@media(max-width:900px){{.article-wrap{{flex-direction:column;}}.shop-sidebar{{position:static;width:100%;max-width:340px;margin:0 auto;}}}}
 .back{{font-size:var(--text-label);letter-spacing:0.22em;text-transform:uppercase;color:var(--quiet);display:inline-flex;align-items:center;gap:8px;margin-bottom:48px;transition:color .2s;}}
 .back:hover{{color:var(--ink);}}
 .article-label{{font-size:var(--text-label);letter-spacing:0.32em;text-transform:uppercase;color:var(--quiet);display:block;margin-bottom:24px;}}
@@ -274,7 +274,7 @@ footer{{padding:40px var(--gutter);display:flex;justify-content:space-between;al
     <div class="body">{body}</div>
   </main>
   <aside class="shop-sidebar" aria-label="Shop NakeyPen">
-    <img class="shop-sidebar-img" src="../love98.png" alt="NakeyPen nail strengthener"/>
+    <img class="shop-sidebar-img" src="../love__98_.png" alt="NakeyPen nail strengthener"/>
     <span class="shop-sidebar-label">NakeyPen &middot; No. 01</span>
     <p class="shop-sidebar-name">The Repair<br/><em>Pen.</em></p>
     <p class="shop-sidebar-desc">Repairs nail damage from gel and acrylics in 4 weeks. 10-second nightly routine.</p>
