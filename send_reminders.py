@@ -39,63 +39,88 @@ sent = 0
 def build_email(name):
     greeting = f"Hey {name.split()[0].title()}," if name.strip() else "Hey there,"
     return f"""<!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="color-scheme" content="light"/>
+<meta name="supported-color-schemes" content="light"/>
 <title>NakeyPen Reminder</title>
+<!--[if mso]><noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript><![endif]-->
 </head>
-<body style="margin:0;padding:0;background:#F9F6F1;font-family:'Helvetica Neue',Arial,sans-serif;">
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#F9F6F1;padding:40px 20px;">
+<body style="margin:0;padding:0;background-color:#F9F6F1;-webkit-text-size-adjust:100%;mso-line-height-rule:exactly;">
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+  style="background-color:#F9F6F1;margin:0;padding:0;">
   <tr>
-    <td align="center">
-      <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">
+    <td align="center" style="padding:40px 16px;">
+
+      <table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0"
+        style="max-width:560px;width:100%;">
 
         <!-- Logo -->
         <tr>
-          <td align="center" style="padding-bottom:40px;">
-            <img src="{LOGO_URL}" alt="nakeyNails" height="32" style="display:block;height:32px;width:auto;"/>
+          <td align="center" style="padding-bottom:32px;">
+            <img src="{LOGO_URL}" alt="nakeyNails" width="120" height="auto"
+              style="display:block;width:120px;height:auto;border:0;"/>
           </td>
         </tr>
 
-        <!-- Main message -->
+        <!-- Card -->
         <tr>
-          <td style="background:#ffffff;padding:48px 40px 40px;border:1px solid rgba(26,22,16,0.08);">
-            <p style="margin:0 0 8px;font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:#9E9890;">
+          <td style="background-color:#ffffff;padding:40px 36px 36px 36px;border:1px solid #E8E4DE;">
+
+            <!-- Eyebrow -->
+            <p style="margin:0 0 12px 0;font-family:Arial,Helvetica,sans-serif;font-size:10px;
+              letter-spacing:3px;text-transform:uppercase;color:#9E9890;">
               Daily Reminder
             </p>
-            <h1 style="margin:0 0 24px;font-family:Georgia,serif;font-size:32px;font-weight:300;line-height:1.1;color:#1A1610;letter-spacing:-0.02em;">
+
+            <!-- Heading -->
+            <p style="margin:0 0 24px 0;font-family:Georgia,'Times New Roman',Times,serif;
+              font-size:34px;font-weight:400;line-height:1.15;color:#1A1610;">
               Time for your<br/><em>NakeyPen.</em>
-            </h1>
-            <p style="margin:0 0 32px;font-size:16px;color:#5C5650;line-height:1.7;font-weight:300;">
+            </p>
+
+            <!-- Body -->
+            <p style="margin:0 0 20px 0;font-family:Arial,Helvetica,sans-serif;
+              font-size:16px;color:#5C5650;line-height:1.7;">
               {greeting} your nails are waiting. One click, one brush, 10 seconds.
               That is all it takes to keep your recovery on track.
             </p>
-            <p style="margin:0;font-size:14px;color:#5C5650;line-height:1.7;font-weight:300;font-style:italic;">
+
+            <p style="margin:0;font-family:Georgia,'Times New Roman',Times,serif;
+              font-size:15px;color:#5C5650;line-height:1.7;font-style:italic;">
               Consistency is what makes NakeyPen work. You have got this.
             </p>
+
           </td>
         </tr>
 
-        <!-- Buy more button -->
+        <!-- Buy more bar -->
         <tr>
-          <td style="padding-top:4px;">
-            <table width="100%" cellpadding="0" cellspacing="0">
+          <td style="padding-top:3px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td style="background:#1A1610;padding:18px 40px;">
-                  <table width="100%" cellpadding="0" cellspacing="0">
+                <td style="background-color:#1A1610;padding:20px 36px;">
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                     <tr>
-                      <td>
-                        <p style="margin:0;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#9E9890;">
+                      <td style="vertical-align:middle;">
+                        <p style="margin:0 0 2px 0;font-family:Arial,Helvetica,sans-serif;
+                          font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#9E9890;">
                           Running low?
                         </p>
-                        <p style="margin:4px 0 0;font-family:Georgia,serif;font-size:18px;font-weight:300;color:#F9F6F1;">
+                        <p style="margin:0;font-family:Georgia,'Times New Roman',Times,serif;
+                          font-size:18px;font-weight:400;color:#F9F6F1;">
                           Buy more NakeyPen
                         </p>
                       </td>
-                      <td align="right">
+                      <td align="right" style="vertical-align:middle;padding-left:16px;white-space:nowrap;">
                         <a href="{AMAZON_URL}" target="_blank"
-                           style="display:inline-block;background:#F9F6F1;color:#1A1610;font-size:10px;font-weight:400;letter-spacing:0.26em;text-transform:uppercase;text-decoration:none;padding:12px 24px;">
+                          style="display:inline-block;background-color:#F9F6F1;color:#1A1610;
+                          font-family:Arial,Helvetica,sans-serif;font-size:10px;font-weight:700;
+                          letter-spacing:2px;text-transform:uppercase;text-decoration:none;
+                          padding:12px 22px;">
                           Shop Now
                         </a>
                       </td>
@@ -107,18 +132,23 @@ def build_email(name):
           </td>
         </tr>
 
-        <!-- Footer links -->
+        <!-- Footer -->
         <tr>
-          <td style="padding:28px 0 0;text-align:center;">
-            <p style="margin:0;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#9E9890;line-height:2;">
-              <a href="mailto:help@nakeynails.com" style="color:#9E9890;text-decoration:none;">Contact Us</a>
-              &nbsp;&nbsp;·&nbsp;&nbsp;
-              <a href="{REMIND_URL}" style="color:#9E9890;text-decoration:none;">Edit Reminder Times</a>
-              &nbsp;&nbsp;·&nbsp;&nbsp;
-              <a href="mailto:help@nakeynails.com?subject=Unsubscribe&body=Please unsubscribe me from NakeyPen reminders." style="color:#9E9890;text-decoration:none;">Unsubscribe</a>
+          <td align="center" style="padding:28px 0 8px 0;">
+            <p style="margin:0 0 8px 0;font-family:Arial,Helvetica,sans-serif;
+              font-size:11px;color:#9E9890;line-height:2;">
+              <a href="mailto:help@nakeynails.com"
+                style="color:#9E9890;text-decoration:underline;">Contact Us</a>
+              &nbsp;·&nbsp;
+              <a href="{REMIND_URL}"
+                style="color:#9E9890;text-decoration:underline;">Edit Reminder Times</a>
+              &nbsp;·&nbsp;
+              <a href="mailto:help@nakeynails.com?subject=Unsubscribe&body=Please unsubscribe me."
+                style="color:#9E9890;text-decoration:underline;">Unsubscribe</a>
             </p>
-            <p style="margin:16px 0 0;font-size:10px;color:#9E9890;letter-spacing:0.1em;">
-              nakeyNails · Made in USA · help@nakeynails.com
+            <p style="margin:0;font-family:Arial,Helvetica,sans-serif;
+              font-size:10px;color:#B0AA9E;line-height:1.6;">
+              nakeyNails &middot; Made in USA &middot; help@nakeynails.com
             </p>
           </td>
         </tr>
@@ -127,16 +157,19 @@ def build_email(name):
     </td>
   </tr>
 </table>
+
 </body>
 </html>"""
 
 # ── Send one email ────────────────────────────────────────────────
 def send_email(to_email, name):
     msg = MIMEMultipart("alternative")
-    msg["Subject"] = "Time to strengthen your nails with NakeyPen"
-    # msg["From"]    = f"nakeyNails <{GMAIL_USER}>"
-    msg["From"]    = "nakeyNails <help@nakeynails.com>"
+    msg["Subject"] = "Your NakeyPen reminder"
+    msg["From"]    = f"nakeyNails <help@nakeynails.com>"
     msg["To"]      = to_email
+    msg["List-Unsubscribe"] = f"<mailto:help@nakeynails.com?subject=Unsubscribe>"
+    msg["X-Priority"] = "3"
+    msg["Precedence"] = "bulk"
 
     # Plain text fallback
     plain = (f"Hey, time to apply your NakeyPen!\n\n"
