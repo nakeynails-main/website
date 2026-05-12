@@ -22,7 +22,6 @@ html{scroll-behavior:smooth;}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:var(--text-base);line-height:1.65;-webkit-font-smoothing:antialiased;}
 a{color:inherit;text-decoration:none;}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
-
 .nav{display:flex;align-items:center;justify-content:space-between;padding:24px var(--gutter);position:sticky;top:0;z-index:50;background:rgba(249,246,241,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(26,22,16,0.07);}
 .nav-brand{display:inline-flex;align-items:center;flex-shrink:0;}
 .nav-brand img{height:28px;width:auto;display:block;}
@@ -33,25 +32,21 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
 .nav-cta:hover{opacity:0.72;}
 .nav-menu{display:none;}
 @media(max-width:720px){.nav-links{display:none;}.nav-menu{display:block;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;}}
-
 .menu-overlay{display:none;position:fixed;inset:0;background:var(--paper);z-index:70;padding:28px var(--gutter);flex-direction:column;}
 .menu-overlay.open{display:flex;}
 .menu-overlay-top{display:flex;justify-content:space-between;align-items:center;}
 .menu-overlay nav{margin-top:72px;display:flex;flex-direction:column;gap:8px;}
 .menu-overlay nav a{font-family:var(--serif);font-size:clamp(36px,6vw,56px);font-weight:300;color:var(--ink);letter-spacing:-0.01em;padding:12px 0;transition:color .2s;}
 .menu-overlay nav a:hover{color:var(--quiet);}
-
 .page-head{padding:clamp(72px,10vw,140px) var(--gutter) clamp(56px,7vw,96px);max-width:var(--max);margin:0 auto;border-bottom:1px solid rgba(26,22,16,0.07);}
 .page-head .label{font-size:var(--text-label);font-weight:400;letter-spacing:0.32em;text-transform:uppercase;color:var(--quiet);display:block;margin-bottom:28px;}
 .page-head h1{font-family:var(--serif);font-size:var(--text-h1);font-weight:300;line-height:0.92;letter-spacing:-0.025em;max-width:800px;}
-
 .search-wrap{padding:clamp(40px,5vw,64px) var(--gutter) 0;max-width:var(--max);margin:0 auto;}
 .search-box{position:relative;max-width:480px;}
 .search-box input{width:100%;font-family:var(--sans);font-size:var(--text-sm);font-weight:300;color:var(--ink);background:transparent;border:none;border-bottom:1px solid rgba(26,22,16,0.22);padding:12px 36px 12px 0;outline:none;transition:border-color .2s;appearance:none;-webkit-appearance:none;border-radius:0;}
 .search-box input::placeholder{color:var(--quiet);}
 .search-box input:focus{border-color:var(--ink);}
 .search-icon{position:absolute;right:0;top:50%;transform:translateY(-50%);color:var(--quiet);pointer-events:none;font-size:14px;}
-
 .posts{padding:clamp(40px,5vw,64px) var(--gutter) clamp(80px,10vw,140px);max-width:var(--max);margin:0 auto;}
 .post-list{display:flex;flex-direction:column;gap:0;}
 .post-item{display:grid;grid-template-columns:180px 1fr;gap:clamp(32px,4vw,64px);padding:clamp(28px,3.5vw,44px) 0;border-top:1px solid rgba(26,22,16,0.08);align-items:start;transition:opacity .2s;}
@@ -63,11 +58,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
 .post-read{font-size:var(--text-label);letter-spacing:0.22em;text-transform:uppercase;color:var(--ink);}
 .search-empty{display:none;padding:clamp(40px,5vw,64px) 0;font-size:var(--text-sm);color:var(--quiet);letter-spacing:0.1em;}
 @media(max-width:640px){.post-item{grid-template-columns:1fr;gap:10px;}.post-date{padding-top:0;}}
-
 footer{padding:40px var(--gutter);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-top:1px solid rgba(26,22,16,0.07);}
 .footer-brand{font-family:var(--serif);font-size:16px;font-weight:400;letter-spacing:0.28em;text-transform:uppercase;}
 .footer-meta{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--quiet);}
-
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .9s var(--ease),transform .9s var(--ease);}
 .reveal.in{opacity:1;transform:none;}
 </style>
@@ -141,20 +134,6 @@ footer{padding:40px var(--gutter);display:flex;justify-content:space-between;ali
         <h2>Why Your Nails Won't Grow After Gel Manicures</h2>
         <p>Your nails aren't broken, but something is definitely blocking their progress.</p>
         <span class="post-read">Read &#8594;</span>
-      </div>
-    </a>
-    <p class="search-empty" id="searchEmpty">No articles found for that search.</p>
-      </div>
-    </a>
-    <a class="post-item reveal" href="why-your-nails-wont-grow-after-gel-manicures">
-      <span class="post-date">May 12, 2026</span>
-      <div class="post-body">
-        <h2>Why Your Nails Won't Grow After Gel Manicures</h2>
-        <p>Your nails aren't broken, but something is definitely blocking their progress.</p>
-        <span class="post-read">Read &#8594;</span>
-      </div>
-    </a>
-    <p class="search-empty" id="searchEmpty">No articles found for that search.</p>
       </div>
     </a>
     <p class="search-empty" id="searchEmpty">No articles found for that search.</p>
