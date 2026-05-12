@@ -321,7 +321,7 @@ footer {
 <!-- Search -->
 <div class="search-wrap">
   <div class="search-box">
-    <input type="search" id="searchInput" placeholder="Search articles..." autocomplete="off" aria-label="Search blog posts"/>
+    <input type="text" id="searchInput" placeholder="Search articles..." autocomplete="off" aria-label="Search blog posts"/>
     <span class="search-icon" aria-hidden="true">&#x2315;</span>
   </div>
 </div>
@@ -330,78 +330,13 @@ footer {
 <div class="posts">
   <div class="post-list" id="postList">
     <!-- POST_ENTRIES -->
-    <a class="post-item reveal" href="why-your-nails-feel-dry-brittle-after-gel-polish">
-      <span class="post-date">May 12, 2026</span>
-      <div class="post-body">
-        <h2>Why Your Nails Feel Dry and Brittle After Gel Polish Removal</h2>
-        <p>And exactly how to rehydrate them from the inside out.</p>
-        <span class="post-read">Read &#8594;</span>
-      </div>
-    </a>
-    <a class="post-item reveal" href="why-nails-get-extra-brittle-in-winter">
-      <span class="post-date">May 12, 2026</span>
-      <div class="post-body">
-        <h2>Why your nails get extra brittle in winter and what actually helps</h2>
-        <p>The season changes, and suddenly your nails snap like twigs.</p>
-        <span class="post-read">Read &#8594;</span>
-      </div>
-    </a>
-    <a class="post-item reveal" href="how-long-does-it-take-for-nails-to-grow-back-after-gel">
-      <span class="post-date">May 12, 2026</span>
-      <div class="post-body">
-        <h2>How long does it take for nails to grow back after gel?</h2>
-        <p>Your nails CAN grow back stronger, but timing matters.</p>
-        <span class="post-read">Read &#8594;</span>
-      </div>
-    </a>
-    <a class="post-item reveal" href="yellow-nails-after-acrylics-heres-how-to-fix-it">
-      <span class="post-date">May 11, 2026</span>
-      <div class="post-body">
-        <h2>Why Your Nails Turn Yellow After Acrylics Come Off</h2>
-        <p>The staining is real, but it's totally reversible.</p>
-        <span class="post-read">Read &#8594;</span>
-      </div>
-    </a>
-    <a class="post-item reveal" href="soft-nails-after-acrylics-heres-why-and-how-to-fix-it">
-      <span class="post-date">May 11, 2026</span>
-      <div class="post-body">
-        <h2>Why Your Nails Feel Soft and Weak After Acrylics Come Off</h2>
-        <p>And exactly what to do about it.</p>
-        <span class="post-read">Read &#8594;</span>
-      </div>
-    </a>
-    <a class="post-item reveal" href="soft-spongy-nails-after-acrylics-heres-why">
-      <span class="post-date">May 11, 2026</span>
-      <div class="post-body">
-        <h2>Why Your Nails Feel Soft and Spongy After Acrylics (And How to Fix It)</h2>
-        <p>The damage is real, but recovery is completely possible.</p>
-        <span class="post-read">Read &#8594;</span>
-      </div>
-    </a>
-    <a class="post-item reveal" href="why-nails-peel-in-layers-after-gel-and-how-to-fix-it">
-      <span class="post-date">May 11, 2026</span>
-      <div class="post-body">
-        <h2>Why Your Nails Peel in Layers After Gel Removal</h2>
-        <p>The real reason your nails flake and what actually works to fix it.</p>
-        <span class="post-read">Read &#8594;</span>
-      </div>
-    </a>
+    <p class="search-empty" id="searchEmpty">No articles found for that search.</p>
     <a class="post-item reveal" href="2026-05-11">
       <span class="post-date">May 11, 2026</span>
       <div class="post-body">
         <h2>Why Your Nails Get So Thin After Acrylics and How to Fix It</h2>
         <p>The truth about what happens beneath those acrylics and how to recover.</p>
         <span class="post-read">Read &#8594;</span>
-      </div>
-    </a>
-    <a class="post-item reveal" href="fix-ridged-nails-after-acrylics-restore-smooth-texture">
-      <span class="post-date">May 11, 2026</span>
-      <div class="post-body">
-        <h2>Why You Get Ridged Nails After Acrylics and How to Fix Them</h2>
-        <p>Those vertical lines aren't permanent. Here's what caused them and how to heal.</p>
-        <span class="post-read">Read &#8594;</span>
-      </div>
-    </a>
       </div>
     </a>
     <a class="post-item reveal" href="soft-nails-after-acrylics-heres-why-and-how-to-fix-it">
@@ -455,21 +390,28 @@ footer {
   const postList    = document.getElementById('postList');
   const searchEmpty = document.getElementById('searchEmpty');
 
-  searchInput?.addEventListener('input', function () {
-    const query = this.value.trim().toLowerCase();
-    const items = postList.querySelectorAll('.post-item');
+  function runSearch() {
+    const query = searchInput.value.trim().toLowerCase();
+    const items = postList.querySelectorAll('a.post-item');
     let visible = 0;
 
     items.forEach(item => {
-      const title    = item.querySelector('h2')?.textContent.toLowerCase() || '';
-      const subtitle = item.querySelector('p')?.textContent.toLowerCase()  || '';
+      const title    = (item.querySelector('h2')?.textContent  || '').toLowerCase();
+      const subtitle = (item.querySelector('p')?.textContent   || '').toLowerCase();
       const matches  = !query || title.includes(query) || subtitle.includes(query);
-      item.style.display = matches ? '' : 'none';
+      item.style.display    = matches ? 'grid' : 'none';
+      item.style.opacity    = matches ? '1'    : '';
+      item.style.transform  = matches ? 'none' : '';
       if (matches) visible++;
     });
 
-    searchEmpty.style.display = (query && visible === 0) ? 'block' : 'none';
-  });
+    if (searchEmpty) {
+      searchEmpty.style.display = (query && visible === 0) ? 'block' : 'none';
+    }
+  }
+
+  searchInput?.addEventListener('input', runSearch);
+  searchInput?.addEventListener('search', runSearch);
 
   // Reveal
   const io = new IntersectionObserver(entries => {
