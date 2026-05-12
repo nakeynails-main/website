@@ -340,7 +340,7 @@ with open("blogs/index.html", encoding="utf-8") as f:
     idx = f.read()
 idx = re.sub(
     r"<!-- POST_ENTRIES -->.*?(?=\s*</div>)",
-    f"<!-- POST_ENTRIES -->{entries}",
+    f"<!-- POST_ENTRIES -->{entries}\n    <p class=\"search-empty\" id=\"searchEmpty\">No articles found for that search.</p>",
     idx, flags=re.DOTALL
 )
 with open("blogs/index.html", "w", encoding="utf-8") as f:
