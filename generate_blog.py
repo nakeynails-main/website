@@ -380,3 +380,37 @@ with open("blogs/index.html", "w", encoding="utf-8") as f:
     f.write(idx)
 print(f"Updated index: {len(posts_meta)} posts listed.")
 print("Done.")
+
+# ── Generate sitemap.xml ──────────────────────────────────────────
+sitemap_urls = []
+
+static_pages = [
+    ("",                  "weekly",  "1.0"),
+    ("remind-me.html",    "monthly", "0.7"),
+    ("blogs/index.html",  "weekly",  "0.9"),
+]
+for path, freq, priority in static_pages:
+    loc = f"{DOMAIN}/{path}".rstrip("/")
+    sitemap_urls.append(
+        f"  <url>\n    <loc>{loc}</loc>\n    <changefreq>{freq}</changefreq>\n    <priority>{priority}</priority>\n  </url>"
+    )
+
+for pub_date, fn, pt, ps, dd in posts_meta:
+    slug = fn[:-5]
+    loc  = f"{DOMAIN}/blogs/{slug}"
+    sitemap_urls.append(
+        f"  <url>\n    <loc>{loc}</loc>\n    <lastmod>{pub_date[:10]}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>"
+    )
+
+sitemap_body = "\n".join(sitemap_urls)
+sitemap_xml  = (
+    '<?xml version="1.0" encoding="UTF-8"?>\n'
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    + sitemap_body +
+    '\n</urlset>'
+)
+
+with open("sitemap.xml", "w", encoding="utf-8") as f:
+    f.write(sitemap_xml)
+
+print(f"Generated sitemap.xml with {len(sitemap_urls)} URLs.")
