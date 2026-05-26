@@ -54,9 +54,22 @@ TOPIC RULES:
   Bad: "nail brittleness tips" | Good: "Why nails get extra brittle in winter and what actually helps"
   Bad: "gel nail damage" | Good: "The specific damage that happens when you peel off gel polish"
   Bad: "nail peeling" | Good: "Why the top layer of your nail keeps separating even after stopping gel"
-- Vary your title format every single week. Rotate through these structures:
-  "Why...", "How to...", "The real reason...", "What happens when...", "Is it normal that...", "How long does it take to...", "What nobody tells you about..."
-  Never start two posts in a row with the same opening word
+- Write titles like a real beauty editor or magazine writer would. Think Vogue, Into The Gloss, Byrdie.
+- Titles should feel like something a friend would text you or a headline you would actually click on
+- AVOID these robotic openers entirely: "What Happens", "How Long", "Why Your Nails", "How to Fix", "The Real Reason"
+- GOOD title examples (use these as inspiration, not templates):
+  "Your nails are not broken. They are just dehydrated."
+  "Peeling off your gel was a mistake. Here is the damage."
+  "Six weeks of acrylics and my nails were paper thin"
+  "The ingredient your nails have been missing this whole time"
+  "Gel damage is real. But it is not permanent."
+  "I quit gel for 30 days. This is what happened."
+  "Nobody told me acetone did this to my nails"
+  "Thin nails after acrylics are not normal. Here is why."
+  "The one thing that actually helped my nails grow back"
+  "Your cuticles are telling you something"
+- Make titles short, punchy, direct. Under 60 characters ideally.
+- Never start two posts in a row with the same word
 
 WRITING RULES:
 - 600 to 750 words
