@@ -130,7 +130,19 @@ raw = response["content"][0]["text"].strip()
 raw = re.sub(r"^```[a-z]*\n?", "", raw)
 raw = re.sub(r"\n?```$", "", raw.strip())
 
-post = json.loads(raw)
+# Remove invalid control characters that break JSON parsing
+import unicodedata
+raw = "".join(ch for ch in raw if unicodedata.category(ch) != "Cc" or ch in ("\n", "\t"))
+
+try:
+    post = json.loads(raw)
+except json.JSONDecodeError:
+    # Fallback: extract JSON object using regex and retry
+    match = re.search(r"\{.*\}", raw, re.DOTALL)
+    if match:
+        post = json.loads(match.group(0))
+    else:
+        raise
 
 chosen_topic     = post["chosen_topic"]
 
