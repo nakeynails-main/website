@@ -386,8 +386,8 @@ sitemap_urls = []
 
 static_pages = [
     ("",                  "weekly",  "1.0"),
-    ("remind-me.html",    "monthly", "0.7"),
-    ("blogs/index.html",  "weekly",  "0.9"),
+    ("remind-me",         "monthly", "0.7"),
+    ("blogs",             "weekly",  "0.9"),
 ]
 for path, freq, priority in static_pages:
     loc = f"{DOMAIN}/{path}".rstrip("/")
