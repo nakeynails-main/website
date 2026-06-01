@@ -1,0 +1,27 @@
+name: Add Canonical Tags
+
+on:
+  workflow_dispatch:
+
+jobs:
+  add-canonicals:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Add canonical tags to existing posts
+        run: python3 add_canonicals.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "Blog Bot"
+          git config user.email "bot@nakeynails.com"
+          git add blogs/
+          git diff --staged --quiet || git commit -m "Add canonical tags to existing posts" && git push
