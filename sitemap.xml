@@ -16,6 +16,12 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://nakeynails.com/blogs/uv-lamps-are-damaging-your-nails-heres-why</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://nakeynails.com/blogs/stop-breaking-your-nails-every-time-you-touch-them</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -106,19 +112,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nakeynails.com/blogs/why-your-nails-wont-grow-after-gel-manicures</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nakeynails.com/blogs/why-your-nails-are-dry-and-brittle-and-how-to-fix-it</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nakeynails.com/blogs/why-the-top-layer-of-your-nail-keeps-peeling</loc>
+    <loc>https://nakeynails.com/blogs/why-your-nails-get-brittle-in-winter-and-how-to-stop-it</loc>
     <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -130,7 +124,19 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://nakeynails.com/blogs/why-your-nails-get-brittle-in-winter-and-how-to-stop-it</loc>
+    <loc>https://nakeynails.com/blogs/why-the-top-layer-of-your-nail-keeps-peeling</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nakeynails.com/blogs/why-your-nails-are-dry-and-brittle-and-how-to-fix-it</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nakeynails.com/blogs/why-your-nails-wont-grow-after-gel-manicures</loc>
     <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
