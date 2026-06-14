@@ -567,6 +567,7 @@ footer {
     <!-- Frequency -->
     <div class="field" id="field-frequency">
       <span class="field-label">How often? <span class="req">*</span></span>
+      <span style="font-size:11px;color:var(--quiet);letter-spacing:0.12em;display:block;margin-bottom:16px;">We recommend applying NakeyPen 2 to 4 times a day for best results.</span>
       <div class="freq-buttons" role="group" aria-label="Reminder frequency">
         <button type="button" class="freq-btn" data-freq="1">Once daily</button>
         <button type="button" class="freq-btn" data-freq="2">Twice daily</button>
@@ -745,7 +746,7 @@ footer {
   function validate() {
     clearAll();
     let ok = true;
-    const name    = form.name.value.trim();
+    const name    = form.elements['name'].value.trim();
     const email   = form.email.value.trim();
     const type    = form.reminderType?.value;
     const freq    = freqInput.value;
@@ -818,7 +819,7 @@ footer {
     // ── Build payload ────────────────────────────────────────────
     const payload = {
       timestamp,
-      name:         form.name.value.trim(),
+      name:         form.elements['name'].value.trim(),
       email:        form.email.value.trim().toLowerCase(),
       phone:        '',
       reminderType: form.reminderType?.value || 'Email',
