@@ -130,17 +130,63 @@ raw = response["content"][0]["text"].strip()
 raw = re.sub(r"^```[a-z]*\n?", "", raw)
 raw = re.sub(r"\n?```$", "", raw.strip())
 
-# Remove invalid control characters that break JSON parsing
+# Aggressively clean control characters before JSON parsing
 import unicodedata
-raw = "".join(ch for ch in raw if unicodedata.category(ch) != "Cc" or ch in ("\n", "\t"))
+
+def clean_for_json(text):
+    """Remove all control characters except legitimate whitespace."""
+    cleaned = []
+    for ch in text:
+        cp = ord(ch)
+        # Keep normal printable chars, space, tab, newline, carriage return
+        if cp >= 0x20 or cp in (0x09, 0x0A, 0x0D):
+            cleaned.append(ch)
+    return "".join(cleaned)
+
+raw = clean_for_json(raw)
+
+# Also escape any literal newlines inside JSON string values
+# (replace raw newlines within string values with \n)
+def fix_json_strings(text):
+    result = []
+    in_string = False
+    escape_next = False
+    for ch in text:
+        if escape_next:
+            result.append(ch)
+            escape_next = False
+            continue
+        if ch == "\\":
+            escape_next = True
+            result.append(ch)
+            continue
+        if ch == "\"" and not escape_next:
+            in_string = not in_string
+            result.append(ch)
+            continue
+        if in_string and ch == "\n":
+            result.append("\\n")
+            continue
+        if in_string and ch == "\r":
+            result.append("\\r")
+            continue
+        if in_string and ch == "\t":
+            result.append("\\t")
+            continue
+        result.append(ch)
+    return "".join(result)
+
+raw = fix_json_strings(raw)
 
 try:
     post = json.loads(raw)
-except json.JSONDecodeError:
-    # Fallback: extract JSON object using regex and retry
-    match = re.search(r"\{.*\}", raw, re.DOTALL)
-    if match:
-        post = json.loads(match.group(0))
+except json.JSONDecodeError as e:
+    print(f"JSON parse failed: {e}")
+    # Last resort: extract just the JSON object boundaries and retry
+    start = raw.find("{")
+    end   = raw.rfind("}") + 1
+    if start >= 0 and end > start:
+        post = json.loads(clean_for_json(raw[start:end]))
     else:
         raise
 
